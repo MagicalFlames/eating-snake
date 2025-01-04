@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>贪吃蛇</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <!-- 主菜单 -->
+        <div id="main-menu" class="menu active">
+            <h1>贪吃蛇</h1>
+            <button id="start-btn">开始游戏</button>
+            <button id="difficulty-btn">选择难度</button>
+            <button id="highscore-btn">最高分</button>
+            <div class="gamepad-status">
+                手柄状态: <span id="gamepad-indicator">未连接</span>
+            </div>
+        </div>
+
+        <!-- 难度选择菜单 -->
+        <div id="difficulty-menu" class="menu">
+            <h2>选择难度</h2>
+            <button id="easy-btn" class="difficulty-btn active">简单</button>
+            <button id="normal-btn" class="difficulty-btn">中等</button>
+            <button id="hard-btn" class="difficulty-btn">困难</button>
+            <div class="difficulty-info">
+                <p id="difficulty-description">简单模式：蛇身增长1格，1个炸弹</p>
+            </div>
+            <button id="back-to-main">返回主菜单</button>
+        </div>
+
+        <!-- 游戏画布 -->
+        <canvas id="gameCanvas" width="600" height="600"></canvas>
+
+        <!-- 游戏信息 -->
+        <div class="game-info">
+            <div class="score">分数: <span id="score">0</span></div>
+            <div class="time">时间: <span id="time">00:00</span></div>
+            <div class="high-score">最高分: <span id="highScore">0</span></div>
+        </div>
+
+        <!-- 暂停菜单 -->
+        <div id="pause-menu" class="menu">
+            <h2>游戏暂停</h2>
+            <button id="resume-btn">继续游戏</button>
+            <button id="restart-btn">重新开始</button>
+            <button id="menu-btn">返回主菜单</button>
+        </div>
+
+        <!-- 游戏结束菜单 -->
+        <div id="game-over" class="menu">
+            <h2>游戏结束</h2>
+            <div class="final-score">最终分数: <span id="finalScore">0</span></div>
+            <div class="survival-time">存活时间: <span id="survivalTime">00:00</span></div>
+            <button id="retry-btn">重新开始</button>
+            <button id="back-menu-btn">返回主菜单</button>
+        </div>
+
+        <!-- 最高分菜单 -->
+        <div id="highscore-menu" class="menu">
+            <h2>最高分记录</h2>
+            <div class="highscore-tabs">
+                <button class="tab-btn active" data-difficulty="easy">简单</button>
+                <button class="tab-btn" data-difficulty="normal">中等</button>
+                <button class="tab-btn" data-difficulty="hard">困难</button>
+            </div>
+            <div class="highscore-content">
+                <div class="difficulty-scores">
+                    <div class="top-score">
+                        <h3>最高分</h3>
+                        <div class="score-value" id="top-score-value">0</div>
+                    </div>
+                    <div class="history-scores">
+                        <h3>历史记录</h3>
+                        <div class="score-list" id="score-list">
+                            <!-- 历史分数将通过JavaScript动态添加 -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button id="highscore-back">返回主菜单</button>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html> 

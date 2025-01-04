@@ -1,0 +1,342 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(135deg, #e0f7fa, #80deea);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #006064;
+}
+
+.game-container {
+    position: relative;
+    width: 1000px;
+    height: 800px;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 96, 100, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+#gameCanvas {
+    background: #f5f5f5;
+    border-radius: 10px;
+    margin: 20px 0;
+    box-shadow: 0 5px 15px rgba(0, 96, 100, 0.1);
+}
+
+.menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.98);
+    padding: 30px;
+    border-radius: 15px;
+    text-align: center;
+    display: none;
+    z-index: 100;
+    box-shadow: 0 10px 30px rgba(0, 96, 100, 0.15);
+}
+
+.menu.active {
+    display: block;
+}
+
+.menu h1 {
+    font-size: 2.8em;
+    margin-bottom: 30px;
+    background: linear-gradient(45deg, #00acc1, #00838f);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 4px rgba(0, 96, 100, 0.1);
+}
+
+.menu h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #4ecdc4;
+}
+
+.difficulty-btn {
+    position: relative;
+    overflow: hidden;
+    width: 200px !important;
+}
+
+.difficulty-btn.active {
+    background: linear-gradient(45deg, #00acc1, #00838f);
+    transform: scale(1.05);
+}
+
+.difficulty-btn:not(.active) {
+    background: rgba(0, 172, 193, 0.1);
+    color: #00838f;
+}
+
+.difficulty-info {
+    margin: 20px 0;
+    padding: 15px;
+    background: rgba(0, 172, 193, 0.1);
+    border-radius: 10px;
+    font-size: 0.9em;
+    line-height: 1.4;
+    color: #00838f;
+}
+
+/* 最高分菜单样式 */
+.highscore-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    width: auto !important;
+    padding: 8px 20px;
+    margin: 0;
+    background: rgba(0, 172, 193, 0.1);
+    border-radius: 15px;
+}
+
+.tab-btn.active {
+    background: linear-gradient(45deg, #00acc1, #00838f);
+    transform: scale(1.05);
+}
+
+.highscore-content {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.difficulty-scores {
+    text-align: center;
+}
+
+.top-score {
+    margin-bottom: 20px;
+}
+
+.top-score h3 {
+    color: #4ecdc4;
+    margin-bottom: 10px;
+}
+
+.score-value {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #ff6b6b;
+    text-shadow: 0 0 10px rgba(255, 107, 107, 0.5);
+}
+
+.history-scores h3 {
+    color: #4ecdc4;
+    margin-bottom: 10px;
+}
+
+.score-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 250px;
+    overflow-y: auto;
+    padding: 15px;
+    margin-top: 10px;
+    background: rgba(0, 172, 193, 0.05);
+    border-radius: 10px;
+}
+
+.score-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 15px;
+    align-items: center;
+    padding: 12px 20px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    transition: transform 0.2s;
+    border: 1px solid rgba(0, 172, 193, 0.1);
+}
+
+.score-item:hover {
+    transform: translateX(5px);
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.score-item .score {
+    font-weight: bold;
+    color: #00acc1;
+    font-size: 1.2em;
+    text-align: left;
+}
+
+.score-item .time {
+    color: #00838f;
+    text-align: center;
+    padding: 4px 10px;
+    background: rgba(0, 172, 193, 0.1);
+    border-radius: 15px;
+    font-size: 0.9em;
+}
+
+.score-item .date {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7);
+    text-align: right;
+}
+
+.history-scores {
+    margin-top: 30px;
+}
+
+.history-scores h3 {
+    color: #00838f;
+    margin-bottom: 15px;
+    font-size: 1.3em;
+    text-shadow: 0 0 10px rgba(78, 205, 196, 0.3);
+}
+
+/* 当没有记录时的样式 */
+.score-item.no-record {
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+    padding: 20px;
+    text-align: center;
+    grid-template-columns: 1fr;
+}
+
+/* 滚动条样式 */
+.score-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.score-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+.score-list::-webkit-scrollbar-thumb {
+    background: rgba(0, 172, 193, 0.5);
+    border-radius: 4px;
+}
+
+.score-list::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 172, 193, 0.7);
+}
+
+#highscore-back, #back-to-main {
+    margin-top: 20px;
+    background: linear-gradient(45deg, #00acc1, #00838f);
+    opacity: 0.9;
+    width: 200px;
+}
+
+#highscore-back:hover, #back-to-main:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 172, 193, 0.3);
+}
+
+button {
+    background: linear-gradient(45deg, #00acc1, #00838f);
+    border: none;
+    padding: 12px 30px;
+    margin: 10px;
+    border-radius: 25px;
+    color: white;
+    font-size: 1.1em;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 200px;
+    font-weight: 500;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 172, 193, 0.3);
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding: 20px;
+    background: rgba(0, 172, 193, 0.1);
+    border-radius: 10px;
+    margin-top: 20px;
+    color: #00838f;
+}
+
+.game-info div {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.score, .time, .high-score {
+    text-shadow: 0 0 10px rgba(78, 205, 196, 0.6);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.menu {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@media (max-width: 850px) {
+    .game-container {
+        width: 95%;
+        height: auto;
+    }
+
+    #gameCanvas {
+        width: 90%;
+        height: auto;
+    }
+
+    button {
+        width: 80%;
+    }
+}
+
+.gamepad-status {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    background: rgba(0, 172, 193, 0.1);
+    font-size: 0.9em;
+    color: #00838f;
+}
+
+#gamepad-indicator {
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 4px;
+    margin-left: 5px;
+}
+
+#gamepad-indicator.connected {
+    color: #00acc1;
+    background: rgba(0, 172, 193, 0.2);
+}
+
+#gamepad-indicator.disconnected {
+    color: #f44336;
+    background: rgba(244, 67, 54, 0.1);
+} 
