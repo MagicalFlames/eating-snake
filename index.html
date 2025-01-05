@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>贪吃蛇</title>
     <link rel="stylesheet" href="style.css">
+    <script>
+        window.addEventListener("keydown", function(e) {
+            if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1 && e.target === document.body) {
+                e.preventDefault();
+            }
+        }, false);
+    </script>
 </head>
 <body>
     <div class="game-container">
